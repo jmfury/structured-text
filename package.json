@@ -20,6 +20,7 @@
   },
   "scripts": {
     "test": "npm run lint && jest",
+    "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
     "publish": "npm run build && npm run test && lerna publish",
     "lint": "eslint . --ext .ts,.tsx",
