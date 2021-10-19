@@ -1,3 +1,4 @@
+import deepEqual from 'fast-deep-equal';
 import {
   Root,
   List,
@@ -110,4 +111,32 @@ export function isDocument(
   obj: any,
 ): obj is Document {
   return obj && 'schema' in obj && 'document' in obj;
+}
+
+export const blankStructuredText = {
+  value: {
+    schema: 'dast',
+    document: {
+      type: 'root',
+      children: [
+        {
+          type: 'paragraph',
+          children: [
+            {
+              type: 'span',
+              value: '',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  blocks: [],
+};
+
+export function isBlankStructuredText<R extends Record>(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+  obj: any,
+): obj is StructuredText<R> {
+  return isStructuredText(obj.value) && deepEqual(blankStructuredText, obj);
 }
